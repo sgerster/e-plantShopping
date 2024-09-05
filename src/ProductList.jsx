@@ -27,9 +27,6 @@ function ProductList() {
         setAddedToCart((prevState) => ({
             ...prevState, [product.name]: true,
         }));
-        setDisabled((prevState) => ({
-            ...prevState, [product.name]: true,
-        }));
     };
 
     const plantsArray = [
