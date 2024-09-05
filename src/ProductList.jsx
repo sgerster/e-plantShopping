@@ -27,7 +27,9 @@ function ProductList() {
         setAddedToCart((prevState) => ({
             ...prevState, [product.name]: true,
         }));
-        setDisabled(true);
+        setDisabled((prevState) => ({
+            ...prevState, [product.name]: true,
+        }));
     };
 
     const plantsArray = [
@@ -309,7 +311,7 @@ const handlePlantsClick = (e) => {
                         <div className="product-title">{plant.name}</div>
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        {(!disabled) ?
+                        {(!disabled(plant)) ?
                         <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button> :
                         <button className="disabled">Item in Cart</button> }
                     </div>
