@@ -25,8 +25,6 @@ function ProductList() {
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
-        setBtnDisable(true);
-        setCartBtnText("Item in Cart");
         setAddedToCart((prevState) => ({
             ...prevState, [product.name]: true,
         }));
