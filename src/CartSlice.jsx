@@ -16,7 +16,7 @@ export const CartSlice = createSlice({
         }
     },
     removeItem: (state, action) => {
-        const {id} = action.payload;
+        const id = action.payload;
         delete state.items[id];
     },
     updateQuantity: (state, action) => {
