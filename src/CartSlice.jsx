@@ -16,11 +16,11 @@ export const CartSlice = createSlice({
         }
     },
     incrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload);
+      const item = state.items.find((item) => item.index === action.payload);
       item.quantity++;
     },
     decrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload);
+      const item = state.items.find((item) => item.index === action.payload);
       if (item.quantity === 1){
         item.quantity = 1
       } else {
