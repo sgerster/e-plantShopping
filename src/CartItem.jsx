@@ -41,12 +41,12 @@ const CartItem = ({ onContinueShopping }) => {
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-cost">{item.cost}</div>
               <div className="cart-item-quantity">
-                <button className="cart-item-button cart-item-button-dec" onClick={() => dispatch(decrementQuantity(index))}>-</button>
+                <button className="cart-item-button cart-item-button-dec" onClick={() => dispatch(decrementQuantity(item))}>-</button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
-                <button className="cart-item-button cart-item-button-inc" onClick={() => dispatch(incrementQuantity(index))}>+</button>
+                <button className="cart-item-button cart-item-button-inc" onClick={() => dispatch(incrementQuantity(item))}>+</button>
               </div>
               <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
-              <button className="cart-item-delete" onClick={() => dispatch(removeItem(id))}>Delete</button>
+              <button className="cart-item-delete" onClick={() => dispatch(removeItem(item))}>Delete</button>
             </div>
           </div>
         ))}
