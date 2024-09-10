@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { removeItem, updateQuantity, incrementQuantity, decrementQuantity } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
-  const cart = useSelector(state => state.cart.items);
+  const cart = useSelector(state => state.items);
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
@@ -21,17 +21,6 @@ const CartItem = ({ onContinueShopping }) => {
    onContinueShopping(e);
   };
 
-  const handleIncrement = (item) => {
-    dispatch(updateQuantity({name: item.name, quantity: item.quantity + 1}));
-  };
-
-  const handleDecrement = (item) => {
-   if (item.quantity > 1) {
-    dispatch(updateQuantity({name: item.name, quantity: item.quantity - 1}));
-   } else {
-    dispatch(removeItem(item)); 
-   }
-  };
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
     return (item.cost.slice(1, item.cost.length) * item.quantity).toFixed(2);
@@ -46,18 +35,18 @@ const CartItem = ({ onContinueShopping }) => {
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
       <div>
         {cart.map(item => (
-          <div className="cart-item" key={item.name}>
+          <div className="cart-item" key={item.id}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-cost">{item.cost}</div>
               <div className="cart-item-quantity">
-                <button className="cart-item-button cart-item-button-dec" onClick={() => handleDecrement(item)}>-</button>
+                <button className="cart-item-button cart-item-button-dec" onClick={() => dispatch(decrementQuantity(id))}>-</button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
-                <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrement(item)}>+</button>
+                <button className="cart-item-button cart-item-button-inc" onClick={() => dispatch(incrementQuantity(id))}>+</button>
               </div>
               <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
-              <button className="cart-item-delete" onClick={() => dispatch(removeItem(item))}>Delete</button>
+              <button className="cart-item-delete" onClick={() => dispatch(removeItem(id))}>Delete</button>
             </div>
           </div>
         ))}
