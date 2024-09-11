@@ -317,13 +317,9 @@ const handlePlantsClick = (e) => {
                         <div className="product-title">{plant.name}</div>
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        <button style={{
-                            backgroundColor: addedToCart[plant.name]
-                            ? "gray"
-                            : "#615efc",
-                        }}
+                        <button
                         disabled={addedToCart[plant.name] ? true : false }
-                        className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button> 
+                        className="product-button" onClick={() => handleAddToCart(plant)}>{addedToCart[plant.name] ? 'In Cart' : 'Add to Cart'}</button> 
                     </div>
                 ))}
                 </div>
