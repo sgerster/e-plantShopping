@@ -6,7 +6,7 @@ import { addItem } from './CartSlice';
 
 function ProductList() {
     const dispatch = useDispatch();
-    const cartItems = useSelector(state => state.cart.items);
+    const cart = useSelector(state => state.cart.items);
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
 
@@ -22,11 +22,11 @@ function ProductList() {
 
     useEffect(() => {
         const updatedAddToCart = {};
-        cartItems.forEach((item) => {
+        cart.forEach((item) => {
             updatedAddToCart[item.name] = true;
         });
         setAddedToCart(updatedAddToCart);
-    }, [cartItems]);
+    }, [cart]);
 
     const plantsArray = [
         {
