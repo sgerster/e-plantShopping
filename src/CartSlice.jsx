@@ -15,21 +15,21 @@ export const CartSlice = createSlice({
             state.items.push({ name, image, cost, quantity: 1 });
         }
     },
-    incrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.name === action.payload);
-      item.quantity++;
+    incrementQuantity: (state, {payload}) => {
+      const item = state.items.find((item) => item.id === payload.id);
+      item.quantity = item.quantity + 1;
     },
-    decrementQuantity: (state, action) => {
-      const item = state.items.find((item) => item.name === action.payload);
+    decrementQuantity: (state, {payload}) => {
+      const item = state.items.find((item) => item.id === payload.id);
       if (item.quantity === 1){
         item.quantity = 1
       } else {
-        item.quantity--;
+        item.quantity = item.quantity - 1;
       }
     },
     removeItem: (state, action) => {
-      const removeItem = state.items.filter((item) => item.name !== action.paylaod);
-      state.items = removeItem;
+      const itemId = action.payload;
+      state.items = state.items.filter((item) => item.id !== itemId);
       },
   },
 });
