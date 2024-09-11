@@ -6,12 +6,9 @@ import { addItem } from './CartSlice';
 
 function ProductList() {
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart.items);
+    const cartItems = useSelector(state => state.cart.items);
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({});
-    const [btnDisable, setBtnDisable] = useState(false);
-    const [cartBtnText, setCartBtnText] = useState("Add to Cart");
 
     const getTotalAmountNum = () => {
         let totalItemsNum = 0;
@@ -23,12 +20,13 @@ function ProductList() {
         return totalItemsNum;
     };
 
-    const handleAddToCart = (product) => {
-        dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-            ...prevState, [product.name]: true,
-        }));
-    };
+    useEffect(() => {
+        const updatedAddToCart = {};
+        cartItems.forEach((item) => {
+            updatedAddToCart[item.name] = true;
+        });
+        setAddedToCart(updatedAddToCart);
+    }, [cartItems]);
 
     const plantsArray = [
         {
@@ -277,6 +275,16 @@ const handlePlantsClick = (e) => {
     alert("Functionality to be added for future reference");
   };
 
+  const [addedToCart, setAddedToCart] = useState({});
+
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
+    setAddedToCart((prevState) => ({
+        ...prevState,
+        [plant.name]: true,
+    }));
+  };
+
     return (
         <div>
              <div className="navbar" style={styleObj}>
@@ -309,7 +317,13 @@ const handlePlantsClick = (e) => {
                         <div className="product-title">{plant.name}</div>
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        <button className="product-button" disabled={btnDisable} onClick={() => handleAddToCart(plant)}>{cartBtnText}</button> 
+                        <button style={{
+                            backgroundColor: addedToCart[plant.name]
+                            ? "gray"
+                            : "#615efc",
+                        }}
+                        disabled={addedToCart[plant.name] ? true : false }
+                        className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button> 
                     </div>
                 ))}
                 </div>

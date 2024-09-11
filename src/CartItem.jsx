@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, incrementQuantity, decrementQuantity } from './CartSlice';
+import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
@@ -30,23 +30,35 @@ const CartItem = ({ onContinueShopping }) => {
     alert("function to be added for future reference");
   };
 
+  const handleIncrememnt = (item) => {
+    dispatch(updateQuantity({name: item.name, quantity: item.quantity + 1}));
+  };
+
+  const handleDecrement = (item) => {
+    dispatch(updateQuantity({name: item.name, quantity: item.quantity - 1}));
+  };
+
+  const handleRemove = (item) => {
+    dispatch(removeItem(item));
+  };
+
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
       <div>
         {cart.map(item => (
-          <div className="cart-item" key={item.id}>
+          <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-cost">{item.cost}</div>
               <div className="cart-item-quantity">
-                <button className="cart-item-button cart-item-button-dec" onClick={() => dispatch(decrementQuantity(item))}>-</button>
+                <button className="cart-item-button cart-item-button-dec" onClick={() => handleDecrement(item)}>-</button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
-                <button className="cart-item-button cart-item-button-inc" onClick={() => dispatch(incrementQuantity(item))}>+</button>
+                <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrememnt(item)}>+</button>
               </div>
               <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
-              <button className="cart-item-delete" onClick={() => dispatch(removeItem(item))}>Delete</button>
+              <button className="cart-item-delete" onClick={() => handleRemove(item)}>Delete</button>
             </div>
           </div>
         ))}
