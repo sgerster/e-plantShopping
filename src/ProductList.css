@@ -113,6 +113,9 @@ body {
 .product-button:disabled {
     background-color: darkgray;
 }
+.product-button:disabled:hover {
+    background-color: darkgray;
+}
 
 
 /* Pseudo-elements - Sale badge */
